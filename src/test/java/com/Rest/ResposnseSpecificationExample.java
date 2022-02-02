@@ -1,2 +1,4 @@
-package com.Rest;public class ResposnseSpecificationExample {
+package com.Rest;
+
+public class ResposnseSpecificationExample {
 }
