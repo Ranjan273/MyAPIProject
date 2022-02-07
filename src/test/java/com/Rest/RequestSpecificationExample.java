@@ -3,6 +3,7 @@ package com.Rest;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
@@ -31,6 +32,9 @@ public class RequestSpecificationExample {
         requestSpecBuilder.addHeader("x-api-key","PMAK-619c85bfbb765b003b08bea9-a4e24546a56ebff51310b676cde6ecc36b");
         requestSpecBuilder.log(LogDetail.ALL);
         RestAssured.requestSpecification=requestSpecBuilder.build();
+
+        responseSpecification=RestAssured.expect()
+                .statusCode(200).contentType(ContentType.JSON);
     }
 
     @Test
