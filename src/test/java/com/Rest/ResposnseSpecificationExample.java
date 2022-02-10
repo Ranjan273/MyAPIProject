@@ -77,4 +77,8 @@ public class ResposnseSpecificationExample {
                 .log().all()
                 .assertThat().body("workspace.name",equalTo("MyThirdWorkspace"));
     }
+
+
+
+
 }

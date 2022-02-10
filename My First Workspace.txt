@@ -1,0 +1,5 @@
+https://www.postman.com/Ranjan5587
+
+https://learning.postman.com/docs/writing-scripts/script-references/variables-list/
+
+https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/
