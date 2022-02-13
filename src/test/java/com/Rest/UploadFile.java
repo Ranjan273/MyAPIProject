@@ -1,5 +1,6 @@
 package com.Rest;
 
+import io.restassured.config.EncoderConfig;
 import org.testng.annotations.Test;
 
 import java.io.*;
@@ -38,5 +39,21 @@ public class UploadFile {
         OutputStream os=new FileOutputStream(new File("ApiDemos-debug.apk"));
         os.write(bytes);
         os.close();
+    }
+
+    @Test
+    public void form_urlencoded(){
+        given().
+                baseUri("https://postman-echo.com")
+                .config(config().encoderConfig(EncoderConfig.encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)))
+                .formParam("key1","value1")
+                .formParam("key 2","value 2")
+                .log().all()
+                .when()
+                .post("/post")
+                .then()
+                .log().all()
+                .assertThat()
+                .statusCode(200);
     }
 }
