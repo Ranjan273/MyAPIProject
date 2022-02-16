@@ -2,6 +2,7 @@ package com.Rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -58,5 +59,42 @@ public class JacksonAPI_jsonObject {
                 .body("workspace.name",equalTo("myworkplaceone"));
 
     }
+
+    @Test
+    public void serialize_Map_to_Json_using_Jackson() throws JsonProcessingException {
+
+        ObjectMapper objectMapper=new ObjectMapper();
+        ObjectNode nestedobjectNode=objectMapper.createObjectNode();
+
+        nestedobjectNode.put("name","myworkspacetwo");
+        nestedobjectNode.put("type","personal");
+        nestedobjectNode.put("description","Rest Assured Created This");
+
+        ObjectNode mainobjectnode=objectMapper.createObjectNode();
+        mainobjectnode.set("workspace",nestedobjectNode);
+
+       /* HashMap<String,Object> mainobject=new HashMap<>();
+
+        HashMap<String,String> nestedobject=new HashMap<>();
+        nestedobject.put("name","myworkplaceone");
+        nestedobject.put("type","personal");
+        nestedobject.put("description","Rest Assured Created This");
+
+        mainobject.put("workspace",nestedobject);
+
+        ObjectMapper objectMapper=new ObjectMapper();*/
+        String mainObjectstr=objectMapper.writeValueAsString(mainobjectnode);
+
+        given()
+                .body(mainObjectstr)
+        .when()
+                .post("/workspaces")
+        .then()
+                .spec(responseSpecification)
+                .assertThat()
+                .body("workspace.name",equalTo("myworkspacetwo"));
+
+    }
+
 
 }
