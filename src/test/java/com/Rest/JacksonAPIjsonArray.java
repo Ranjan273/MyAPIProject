@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.rest.pojo.simple.SimplePojo;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -104,4 +105,27 @@ public class JacksonAPIjsonArray {
                 .body("msg",equalTo("Success"));
 
     }
+
+    @Test
+    public void simplePOJO_example(){
+
+        SimplePojo simplePojo=new SimplePojo("value1","value2");
+
+
+        /*String payload="{\n" +
+                "    \"key1\" : \"value1\",\n" +
+                "    \"key2\" : \"value2\"\n" +
+                "}";*/
+        given()
+              .body(simplePojo)
+        .when()
+                .post("/postsimplepojo")
+        .then()
+                .spec(customresponsespecification)
+                .assertThat()
+                .body("key1",equalTo("value1"),
+                        "key2",equalTo("value2"));
+
+    }
+
 }
