@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
+
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.with;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -124,6 +126,8 @@ public class AutomatePost {
     @Test(dataProvider = "workspace")
     public void serialization_deserialization_using_DataProvider_Annotation(String name,String type,String description){
         WorkSpace workspace=new WorkSpace(name,type,description);
+        HashMap<String,String> myhashmap=new HashMap<String,String>();
+        workspace.setMyhashmap(myhashmap);
 
         WorkspaceRoot workspaceRoot=new WorkspaceRoot(workspace);
 
